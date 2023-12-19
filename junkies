@@ -1,0 +1,46 @@
+pipeline {
+    environment {
+    docker = '/usr/local/bin/docker-compose'
+  }
+    agent any
+ 
+    stages {
+        stage('Cloning Git') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'git@github.com:omarUSJ/devops23.git']]])  
+                sh "ls "
+                sh "whoami"
+                nodejs('npm') {
+                    sh "npm install"
+                }
+                echo 'Project Cloned'
+            }
+        }
+        stage('Docker Build') {
+            steps {
+                echo 'Building..'
+                script{
+                    // docker.withTool('docker') {
+                    PAth = sh (
+                        script: 'pwd',
+                        returnStdout: true
+                    ).trim()
+                    sh "/usr/local/bin/docker-compose ${PAth} up -d"
+                // }
+                echo 'Running...'
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+                sh 'npm test'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+    }
+}
