@@ -3,6 +3,11 @@ pipeline {
     docker = '/usr/local/bin/docker-compose'
   }
     agent any
+
+
+    tools {
+        nodejs 'NodeJS 14'
+    }
  
     stages {
         stage('Cloning Git') {
