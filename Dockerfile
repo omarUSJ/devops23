@@ -1,5 +1,4 @@
-# Print a message indicating that the Dockerfile is being used
-RUN echo "Building Docker image using this Dockerfile."
+
 
 FROM jenkins/agent:latest
 
