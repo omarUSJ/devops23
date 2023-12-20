@@ -1,8 +1,8 @@
                 
 pipeline {
-    environment {
+//    environment {
  //   docker = '/usr/local/bin/docker-compose'
-  }
+  //}
     agent any
 
 
