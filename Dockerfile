@@ -1,9 +1,9 @@
 FROM jenkins/agent:latest
 
-USER root
+USER omar
 
 RUN apt-get update \
     && apt-get install -y docker.io \
     && rm -rf /var/lib/apt/lists/*
 
-USER jenkins
+USER omar
