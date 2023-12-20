@@ -9,8 +9,8 @@ pipeline {
 
 
     tools {
-        nodejs 'NodeJS 14',
-        docker 'docker'
+        nodejs 'NodeJS 14'
+        Docker 'Docker'
     }
  
     stages {
