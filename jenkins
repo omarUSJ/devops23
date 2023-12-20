@@ -34,7 +34,7 @@ pipeline {
                         returnStdout: true
                     ).trim()
                 	sh 'curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose'
-                        sh 'chmod +x '$HOME/docker-compose' 
+                        sh 'chmod +x $HOME/docker-compose' 
 		        sh "$HOME/docker-compose up -d"
                 // }
                 echo 'Running...'
