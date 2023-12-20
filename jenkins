@@ -9,7 +9,7 @@ pipeline {
 
 
     tools {
-        nodejs 'NodeJS 14'
+        nodejs 'NodeJS 14',
         docker 'docker'
     }
  
