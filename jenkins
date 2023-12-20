@@ -59,8 +59,9 @@ stage('Check Docker') {
 
          stage('Docker Build') {
             agent {
-                docker {
-                    label 'docker'
+                dockerfile  {
+           filename 'Dockerfile'
+               //     label 'docker'
                     reuseNode true
                   //  image 'node:14'
                   image 'docker:latest'                   
