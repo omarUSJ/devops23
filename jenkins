@@ -43,20 +43,21 @@ pipeline {
     
       stage('Test') {
             steps {
-                script {
-                    echo 'Testing..'
-                    def nodeImage = 'node:14'
+        script {
+            echo 'Testing..'
+            def nodeImage = 'node:14'
 
-                    // Run tests inside a Node.js Docker container
-                    docker.image(nodeImage).inside("-v ${pwd()}:/app") {
-                        // Install dependencies
-                        sh 'npm install'
+            // Define the Docker image to be used for testing
+            def dockerImage = docker.image(nodeImage)
 
-                        // Run unit tests
-                        sh 'npm test'
-                    }
-                }
+            // Run tests inside a Node.js Docker container
+            container(dockerImage) {
+                // Inside the container, install dependencies and run tests
+                sh 'npm install'
+                sh 'npm test'
             }
+        }
+    }
             post {
                 success {
                     echo 'Sending email notification...'
