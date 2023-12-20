@@ -26,23 +26,23 @@ pipeline {
         }
 
         stage('Docker Build') {
-		agent {
-                docker {
-                    image 'node:14'
-                    args '-v /var/run/docker.sock:/var/run/docker.sock'
-                }
-            }        
-  
-	  steps {
-                echo 'Building..'
-                script{
-                    echo 'Building..'
-        script {
-            def PAth = sh(script: 'pwd', returnStdout: true).trim()
-            sh 'curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o $HOME/docker-compose'
-            sh 'chmod +x $HOME/docker-compose'
-            sh "$HOME/docker-compose up -d"
+    agent {
+        docker {
+            image 'node:14'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
+    }
+
+    steps {
+        echo 'Building..'
+        script {
+            def dockerExecutable = tool name: 'Docker', type: 'com.cloudbees.jenkins.plugins.docker_tools.DockerTool'
+            sh "${dockerExecutable}/bin/docker build -t dockerdevopstest ."
+            // Add other Docker commands as needed
+        }
+        echo 'Running...'
+    }
+}
         echo 'Running...'
                 }
             }
