@@ -39,44 +39,24 @@ pipeline {
             }
         }
 
-stage('Install Docker') {
-    steps {
-       script {
-                      // Download and install Docker
-            sh 'mkdir -p $HOME/docker'
-            sh 'cd $HOME/docker'
-            sh 'curl -fsSL https://get.docker.com -o get-docker.sh'
-            sh 'chmod +x get-docker.sh'
 
-            // Execute the Docker installation script without su
-            sh './get-docker.sh'
-
-            // Add the Jenkins user to the docker group
-            sh 'usermod -aG docker jenkins'
-
-            // Restart the Docker service to apply changes
-            sh 'service docker restart'
-
-            // Print Docker version for verification
-            sh '$HOME/bin/docker --version'
-                }
-            }
-}
 
 
 
         stage('Docker Build') {
     agent {
         docker {
-            image 'node:14'
-            args '-v /var/run/docker.sock:/var/run/docker.sock'
+            label 'docker'
+            reuseNode true
+            //image 'node:14'
+            //args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
 
     steps {
         echo 'Building..'
         script {
-            def dockerExecutable = tool name: 'Docker', type: 'com.cloudbees.jenkins.plugins.docker_tools.DockerTool'
+         //   def dockerExecutable = tool name: 'Docker', type: 'com.cloudbees.jenkins.plugins.docker_tools.DockerTool'
             sh "${dockerExecutable}/bin/docker build -t dockerdevopstest ."
             // Add other Docker commands as needed
         }
