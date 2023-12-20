@@ -30,7 +30,7 @@ stage('Install Docker Compose') {
                     // Download and install Docker Compose
                     sh 'curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o $HOME/docker-compose'
                     sh 'chmod +x $HOME/docker-compose'
-                    sh 'sudo mv $HOME/docker-compose /usr/local/bin/docker-compose'
+                    sh ' mv $HOME/docker-compose /usr/local/bin/docker-compose'
 
                     // Print Docker Compose version for verification
                     sh 'docker-compose --version'
