@@ -2,7 +2,7 @@
 pipeline {
     environment {
     docker = '/usr/local/bin/docker-compose'
-    dockerTool = 'docker'  // Use the tool name specified in Jenkins configuration
+  //  dockerTool = 'docker'  // Use the tool name specified in Jenkins configuration
     
   }
     agent any
