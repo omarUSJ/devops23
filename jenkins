@@ -38,6 +38,24 @@ pipeline {
                 }
             }
         }
+
+stage('Install Docker') {
+    steps {
+        script {
+            // Download and install Docker
+            sh 'curl -fsSL https://get.docker.com -o get-docker.sh'
+            sh 'chmod +x get-docker.sh'
+            sh './get-docker.sh --prefix=$HOME'
+            sh 'export PATH=$HOME/bin:$PATH'
+
+            // Print Docker version for verification
+            sh 'docker --version'
+        }
+    }
+}
+
+
+
         stage('Docker Build') {
     agent {
         docker {
