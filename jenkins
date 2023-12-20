@@ -65,6 +65,12 @@ pipeline {
                               body: 'The tests have passed successfully.',
                               to: 'omar.zarrade@net.usj.edu.lb'
                 }
+        failure {
+                    echo 'Sending email notification...'
+                    emailext subject: 'Test Status: FAILURE',
+                              body: 'The tests have failed.',
+                              to: 'omar.zarrade@net.usj.edu.lb'
+                }
             }
         }
         stage('Deploy') {
