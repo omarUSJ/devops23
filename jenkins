@@ -24,6 +24,13 @@ pipeline {
                 echo 'Project Cloned'
             }
         }
+stage('Test Docker') {
+            steps {
+                script {
+                    sh 'docker ps'
+                }
+            }
+        }
         stage('Docker Build') {
 		agent {
                 docker {
