@@ -8,12 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "express": "^4.17.1",  // Example dependency
-    // Add other dependencies as needed
-  },
-  "devDependencies": {
-    // Add development dependencies as needed
-  },
+    "express": "^4.17.1"  },
+  "devDependencies": {},
   "engines": {
     "node": ">=10.0.0"
   }
