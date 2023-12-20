@@ -33,7 +33,7 @@ pipeline {
                         script: 'pwd',
                         returnStdout: true
                     ).trim()
-                    sh "/usr/local/bin/docker-compose ${PAth} up -d"
+                    sh "docker-compose up -d"
                 // }
                 echo 'Running...'
                 }
