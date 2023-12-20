@@ -57,26 +57,17 @@ stage('Check Docker') {
 
 
 
-      stage('Docker Build') {
-    agent {
-        docker {
-            // Specify the Dockerfile path relative to the Jenkinsfile location
-            file 'Dockerfile'
-            reuseNode true // Reuse the same agent for consecutive builds
-            label 'docker' // Label for the agent
+       stage('Docker Build') {
+            steps {
+                echo 'Building..'
+                script {
+                    // Build the Docker image using the specified Dockerfile
+                    // The image will be tagged as 'dockerdevopstest'
+                    sh 'docker build -t dockerdevopstest .'
+                }
+                echo 'Running...'
+            }
         }
-    }
-
-    steps {
-        echo 'Building..'
-        script {
-            // Build the Docker image using the specified Dockerfile
-            // The image will be tagged as 'dockerdevopstest'
-            sh 'docker build -t dockerdevopstest .'
-        }
-        echo 'Running...'
-    }
-}
 
     
         stage('Test') {
