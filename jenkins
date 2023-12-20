@@ -75,8 +75,28 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
+        script {
+            echo 'Merging pull request and cleaning up...'
+
+            // Check if tests passed
+            def testsPassed = sh(script: 'npm test', returnStatus: true) == 0
+
+            // If tests passed, merge the pull request and clean up
+            if (testsPassed) {
+        
+                withCredentials([string(credentialsId: 'your-github-token', variable: 'TOKEN')]) {
+                    sh "curl -s -X PUT -H 'Authorization: Bearer \${GITHUB_TOKEN}' -d '{\"commit_title\":\"Merge PR\"}' 'https://github.com/omarUSJ/devops23.git'"
+                }
+                echo 'Pull request merged successfully.'
+            } else {
+                echo 'Tests failed. Pull request will not be automatically merged.'
             }
+
+            // Cleanup: Terminate the testing cluster
+            def clusterName = sh(script: 'echo $BUILD_TAG', returnStdout: true).trim()
+            sh "your-cluster-termination-command $clusterName"
+            echo 'Testing cluster terminated.'
+        }
         }
     }
 }
