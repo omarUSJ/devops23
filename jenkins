@@ -2,7 +2,7 @@
 pipeline {
     environment {
     docker = '/usr/local/bin/docker-compose'
-    dockerTool = 'docker'  // Use the tool name specified in Jenkins configuration
+   // dockerTool = 'docker'  // Use the tool name specified in Jenkins configuration
     
   }
     agent any
@@ -10,7 +10,7 @@ pipeline {
 
     tools {
         nodejs 'NodeJS 14'
-        docker dockerTool
+        docker 'docker'
     }
  
     stages {
@@ -59,7 +59,7 @@ pipeline {
             steps {
                 echo 'Building..'
                 script {
-                    def npmdocker = tool name: dockerTool, type: 'jenkins.plugins.dockerinstallations.tools.DockerTool'
+                    def npmdocker = tool name: 'docker', type: 'jenkins.plugins.dockerinstallations.tools.DockerTool'
                     sh "${npmdocker} build -t dockerdevopstest ."
                 }
                 echo 'Running...'
