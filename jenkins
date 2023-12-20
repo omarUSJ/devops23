@@ -25,7 +25,14 @@ pipeline {
             }
         }
         stage('Docker Build') {
-            steps {
+		agent {
+                docker {
+                    image 'node:14'
+                    args '-v /var/run/docker.sock:/var/run/docker.sock'
+                }
+            }        
+  
+	  steps {
                 echo 'Building..'
                 script{
                     // docker.withTool('docker') {
