@@ -28,22 +28,6 @@ pipeline {
             }
         }
 
-
-    
-stage('Check Docker') {
-    steps {
-        script {
-            // Print Docker version
-            sh 'docker --version'
-
-            // Print Docker info
-            sh 'docker info'
-        }
-    }
-}
-
-
-
        stage('Docker Build') {
             steps {
                 echo 'Building..'
@@ -61,6 +45,14 @@ stage('Check Docker') {
             steps {
                 echo 'Testing..'
                 sh 'npm test'
+            }
+            post {
+                success {
+                    echo 'Sending email notification...'
+                    emailext subject: 'Test Status: SUCCESS',
+                              body: 'The tests have passed successfully.',
+                              to: 'your.email@example.com'
+                }
             }
         }
         stage('Deploy') {
