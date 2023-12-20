@@ -65,7 +65,7 @@ stage('Check Docker') {
              //       reuseNode true
                   //  image 'node:14'
                //   image 'docker:latest'                   
-                  args '-v /var/run/docker.sock:/var/run/docker.sock'
+             //     args '-v /var/run/docker.sock:/var/run/docker.sock'
                 //}
             //}
 
