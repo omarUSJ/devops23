@@ -39,11 +39,6 @@ pipeline {
             }
         }
 
-
-
-
-
-        stage('Docker Build') {
     agent {
         docker {
             label 'docker'
@@ -52,6 +47,11 @@ pipeline {
             args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
+
+
+
+        stage('Docker Build') {
+
 
     steps {
         echo 'Building..'
