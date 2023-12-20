@@ -42,21 +42,23 @@ pipeline {
 stage('Install Docker') {
     steps {
        script {
-                    // Download and install Docker
-                    sh 'mkdir -p $HOME/docker'
-                    sh 'cd $HOME/docker'
-                    sh 'curl -fsSL https://get.docker.com -o get-docker.sh'
-                    sh 'chmod +x get-docker.sh'
-                    sh './get-docker.sh'
+                      // Download and install Docker
+            sh 'mkdir -p $HOME/docker'
+            sh 'cd $HOME/docker'
+            sh 'curl -fsSL https://get.docker.com -o get-docker.sh'
+            sh 'chmod +x get-docker.sh'
 
-                    // Add the Jenkins user to the docker group
-                    sh 'usermod -aG docker jenkins'
+            // Execute the Docker installation script without su
+            sh './get-docker.sh'
 
-                    // Restart the Docker service to apply changes
-                    sh 'service docker restart'
+            // Add the Jenkins user to the docker group
+            sh 'usermod -aG docker jenkins'
 
-                    // Print Docker version for verification
-                    sh '$HOME/bin/docker --version'
+            // Restart the Docker service to apply changes
+            sh 'service docker restart'
+
+            // Print Docker version for verification
+            sh '$HOME/bin/docker --version'
                 }
             }
 }
