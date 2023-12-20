@@ -56,8 +56,8 @@ pipeline {
     steps {
         echo 'Building..'
         script {
-         
-            sh "${docker}/bin/docker build -t dockerdevopstest ."
+          def npmdocker = tool name: 'docker', type: 'jenkins.plugins.nodejs.tools.DockerInstallations
+            sh "${npmdocker}/bin/docker build -t dockerdevopstest ."
             
         }
         echo 'Running...'
