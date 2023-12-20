@@ -57,27 +57,27 @@ stage('Check Docker') {
 
 
 
-         stage('Docker Build') {
-         //   agent {
-           //     dockerfile  {
-           //filename 'Dockerfile'
-               //     label 'docker'
-             //       reuseNode true
-                  //  image 'node:14'
-               //   image 'docker:latest'                   
-             //     args '-v /var/run/docker.sock:/var/run/docker.sock'
-                //}
-            //}
-
-            steps {
-                echo 'Building..'
-                script {
-                    def npmdocker = tool name: 'docker', type: 'jenkins.plugins.dockerinstallations.tools.DockerTool'
-                    sh "${npmdocker} build -t dockerdevopstest -f Dockerfile ."
-                }
-                echo 'Running...'
-            }
+      stage('Docker Build') {
+    agent {
+        docker {
+            // Specify the Dockerfile path relative to the Jenkinsfile location
+            file 'Dockerfile'
+            reuseNode true // Reuse the same agent for consecutive builds
+            label 'docker' // Label for the agent
         }
+    }
+
+    steps {
+        echo 'Building..'
+        script {
+            // Build the Docker image using the specified Dockerfile
+            // The image will be tagged as 'dockerdevopstest'
+            sh 'docker build -t dockerdevopstest .'
+        }
+        echo 'Running...'
+    }
+}
+
     
         stage('Test') {
             steps {
