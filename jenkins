@@ -1,3 +1,4 @@
+                }
 pipeline {
     environment {
     docker = '/usr/local/bin/docker-compose'
@@ -15,11 +16,11 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/omarUSJ/devops23.git']]])  
                 sh "ls "
                 sh "whoami"
-                nodejs('npm') {
-                    	sh "npm install -g npm"
-            		sh "npm install -g yarn"	
-			sh "npm install"
-                }
+                script {
+           		 def npmExecutable = tool name: 'NodeJS 14', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
+            		 sh "${npmExecutable}/bin/npm install -g npm yarn"
+            		 sh "${npmExecutable}/bin/npm install"
+       			 }		
                 echo 'Project Cloned'
             }
         }
