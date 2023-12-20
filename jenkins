@@ -28,7 +28,8 @@ stage('Install Docker Compose') {
             steps {
                 script {
                     // Download and install Docker Compose
-                    sh 'curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o $HOME/docker-compose'
+                    //sh 'curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o $HOME/docker-compose'
+                     sh 'curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-x86_64" -o /usr/local/bin/docker-compose'
                     sh 'chmod +x $HOME/docker-compose'
                   //  sh ' mv $HOME/docker-compose /usr/local/bin/docker-compose'
 
