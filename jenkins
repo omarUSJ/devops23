@@ -2,12 +2,15 @@
 pipeline {
     environment {
     docker = '/usr/local/bin/docker-compose'
+    dockerTool = 'docker'  // Use the tool name specified in Jenkins configuration
+    
   }
     agent any
 
 
     tools {
         nodejs 'NodeJS 14'
+        docker dockerTool
     }
  
     stages {
@@ -43,26 +46,25 @@ pipeline {
 
 
 
-        stage('Docker Build') {
-              agent {
-                      docker {
-                          label 'docker'
-                          reuseNode true
-                          image 'node:14'
-                          args '-v /var/run/docker.sock:/var/run/docker.sock'
-                      }
-                  }
+         stage('Docker Build') {
+            agent {
+                docker {
+                    label 'docker'
+                    reuseNode true
+                    image 'node:14'
+                    args '-v /var/run/docker.sock:/var/run/docker.sock'
+                }
+            }
 
-    steps {
-        echo 'Building..'
-        script {
-          def npmdocker = tool name: 'docker', type: 'jenkins.plugins.dockerinstallations.tools.DockerInstallations'
-            sh "${npmdocker} -t dockerdevopstest ."
-            ///bin/docker build
+            steps {
+                echo 'Building..'
+                script {
+                    def npmdocker = tool name: dockerTool, type: 'jenkins.plugins.dockerinstallations.tools.DockerTool'
+                    sh "${npmdocker} build -t dockerdevopstest ."
+                }
+                echo 'Running...'
+            }
         }
-        echo 'Running...'
-    }
-}
     
         stage('Test') {
             steps {
