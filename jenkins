@@ -27,20 +27,7 @@ pipeline {
                 echo 'Project Cloned'
             }
         }
-  stage('Install Docker Compose') {
-            steps {
-                script {
-                    // Download and install Docker Compose
-                    sh 'curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-x86_64" -o $HOME/docker-compose'
-                    sh 'chmod +x $HOME/docker-compose'
-                    sh 'mkdir -p $HOME/bin'
-                    sh 'mv $HOME/docker-compose $HOME/bin/docker-compose'
 
-                    // Print Docker Compose version for verification
-                    sh '$HOME/bin/docker-compose --version'
-                }
-            }
-        }
 
     
 stage('Check Docker') {
