@@ -62,7 +62,7 @@ pipeline {
                               to: 'omar.zarrade@net.usj.edu.lb'
                 }
             }
-        }
+        }}
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
