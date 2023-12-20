@@ -43,6 +43,17 @@ pipeline {
         }
 
     
+stage('Check Docker') {
+    steps {
+        script {
+            // Print Docker version
+            sh 'docker --version'
+
+            // Print Docker info
+            sh 'docker info'
+        }
+    }
+}
 
 
 
