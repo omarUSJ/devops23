@@ -51,7 +51,7 @@ pipeline {
                     echo 'Sending email notification...'
                     emailext subject: 'Test Status: SUCCESS',
                               body: 'The tests have passed successfully.',
-                              to: 'your.email@example.com'
+                              to: 'omar.zarrade@net.usj.edu.lb'
                 }
             }
         }
