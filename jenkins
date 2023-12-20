@@ -1,7 +1,7 @@
                 
 pipeline {
     environment {
-    docker = '/usr/local/bin/docker-compose'
+   // docker = '/usr/local/bin/docker-compose'
    // dockerTool = 'docker'  // Use the tool name specified in Jenkins configuration
     
   }
@@ -10,7 +10,7 @@ pipeline {
 
     tools {
         nodejs 'NodeJS 14'
-        dockerTool 'docker'
+      //  dockerTool 'docker'
     }
  
     stages {
