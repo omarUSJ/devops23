@@ -35,7 +35,7 @@ pipeline {
                     // Build the Docker image using the specified Dockerfile
                     // The image will be tagged as 'dockerdevopstest'
                  //   sh 'docker build -t dockerdevopstest .'
-          def dockerBuildOutput = sh(script: 'docker build -t dockerdevopstest .', returnStatus: true).trim()
+        def dockerBuildOutput = sh(script: 'docker build -t dockerdevopstest .', returnStatus: true, returnStdout: true)
             echo "Docker Build Output: ${dockerBuildOutput}"
                 }
                 echo 'Running...'
